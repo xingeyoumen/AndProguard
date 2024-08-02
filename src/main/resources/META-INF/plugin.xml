@@ -45,6 +45,8 @@
                 instance="com.murphy.config.AndProguardConfigurable"
                 displayName="AndProguard Config"/>
     </extensions>
+
+    <!--setting ProjectViewPopupMenu position-->
     <actions>
         <action id="and-proguard" text="AndProguard" icon="/icons/infinity.svg"
                 class="com.murphy.action.AndProguardAction"

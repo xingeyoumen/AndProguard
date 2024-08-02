@@ -2,6 +2,12 @@ package com.murphy.ui;
 
 import javax.swing.*;
 
+/**
+ *
+ * 表单类 对应页面上的空间元素
+ *
+ * 配套使用的页面布局。不同的页面类型
+ */
 public class AndProguardForm {
     private JPanel rootPane;
     private JCheckBox skipData;
@@ -12,6 +18,7 @@ public class AndProguardForm {
     private JTextField layoutResRule;
     private JTextField excludePath;
 
+    //构造方法，传进来创建实例的值，是本地的默认规则
     public AndProguardForm(boolean skipData, String classRule, String methodRule, String fieldRule, String idResRule, String layoutResRule, String excludePath) {
         this.skipData.setSelected(skipData);
         this.classRule.setText(classRule);

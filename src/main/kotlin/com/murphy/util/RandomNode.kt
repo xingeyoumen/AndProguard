@@ -10,6 +10,10 @@ class RandomNode(
     private val range: Pair<Int, Int>,
     private val element: Any
 ) {
+    // Random.nextInt(range.first, range.second + 1) 是 Kotlin 中的随机数生成器类。
+    // nextInt 是 Random 类中的一个方法，用于生成一个随机整数。
+    // 参数 range.first 是生成的随机整数的下界（inclusive），也就是说生成的随机数可以等于 range.first。
+    // 参数 range.second + 1 是生成的随机整数的上界（exclusive），也就是说生成的随机数不会等于 range.second + 1。
     private val length: Int
         get() = if (range.first == range.second) range.first
         else if (range.first < range.second) Random.nextInt(range.first, range.second + 1)
@@ -52,7 +56,12 @@ class RandomNode(
             else RandomNode(Pair(1, 1), element)
         }
 
+        // "{[1000](1)[0100](3,9)}(2,3)"
         private fun parse(content: String): Any {
+            // Stack<String>：这里声明了一个 Stack 类型的对象，该 Stack 是 Java 集合框架中的一种实现，表示一个后进先出（LIFO）的堆栈结构。
+            // <String> 表示这个堆栈中存储的是字符串类型的元素。
+            // 在 Java 中，Stack 类是一个遗留类，继承自 Vector 类，用于表示堆栈数据结构，其中元素的添加和删除遵循后进先出（LIFO）的原则。
+            // Stack 类提供了 push() 方法用于将元素推入堆栈顶部，以及 pop() 方法用于从堆栈顶部弹出并移除元素
             val stack = Stack<String>()
             var pos = content.length - 1
             while (pos > 0) {
@@ -94,6 +103,7 @@ class RandomNode(
             return Pair(start, end)
         }
 
+        //[0100]
         private fun String.toElement(): Any {
             val specCode = substring(1, length - 1)
             if (startsWith('<') && endsWith('>')) return specCode
@@ -103,6 +113,7 @@ class RandomNode(
                 if (specCode.indexOfFirst { it != '1' && it != '0' } > 0 || specCode.length < 4 || specPos < 0 || specPos > 3)
                     throw IllegalArgumentException("Wrong convert element[]: $this")
                 val builder = StringBuilder()
+                //根据自定义的位置数值信息，添加进入对应的类型，大写，小写，数字，下划线
                 if (specCode[0] == '1') builder.append(CHAR_UPPER)
                 if (specCode[1] == '1') builder.append(CHAR_LOWER)
                 if (specCode[2] == '1') builder.append(CHAR_DIGIT)

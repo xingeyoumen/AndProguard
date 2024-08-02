@@ -9,5 +9,5 @@ const val CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz"
 const val CHAR_DIGIT = "0123456789"
 
 const val CHAR_UNDERLINE = "_"
-
+// kotlin file 后缀
 const val KOTLIN_SUFFIX = ".kt"
