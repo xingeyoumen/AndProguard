@@ -24,6 +24,14 @@ import org.jetbrains.kotlin.psi.KtFile
 import java.util.*
 
 /**
+ * Install from Plugin Marketplace
+ * https://plugins.jetbrains.com/plugin/23840-andproguard
+ *
+ * Program Structure Interface 缩写为：PSI，主要负责解析文件，为平台众多功能提供语法和语义代码模型。
+ * https://link.juejin.cn/?target=https%3A%2F%2Fplugins.jetbrains.com%2Fdocs%2Fintellij%2Fpsi.html
+ *
+ * The PsiElement class is the common base class for PSI elements.
+ *
  * 【code implementation - 实现Action的具体代码逻辑】：决定了这个action在哪个context下有效，并且在UI中被选择后的功能（继承父类AnAction并重写actionPerformed()方法，用于Action被执行后的回调）。
  * 【registered - 在配置文件中注册】：决定了这个action在IDE界面的哪个位置出现（创建新的group或存放进现有的ActionGroup，以及在group中的位置）
  *
@@ -34,6 +42,18 @@ class AndProguardAction : AnAction() {
 
     // 继承父类AnAction并重写actionPerformed()方法，用于Action被执行后的回调
     override fun actionPerformed(action: AnActionEvent) {
+        /**
+         * How do I get a PSI element?
+         * AnActionEvent.getData(CommonDataKeys.PSI_ELEMENT)
+         * The PsiElement class is the common base class for PSI elements.
+         *
+         *
+         * A PSI (Program Structure Interface) file is the root of a structure representing a file's contents as a hierarchy of elements in a particular programming language.
+         * PSI（程序结构接口）文件是一种结构的根，它将文件的内容表示为特定编程语言中的元素层次结构。
+         *
+         *
+         */
+        // PlatformDataKeys extends CommonDataKeys
         // psi的类型为PsiElement
         // 首先尝试从 action 中获取 PSI_ELEMENT 数据，如果获取到了，就根据 psi 的类型进行不同的处理。如果获取到的数据为 null，则直接提前返回，不再执行后续的逻辑。
         val psi = action.getData(PlatformDataKeys.PSI_ELEMENT) ?: return
