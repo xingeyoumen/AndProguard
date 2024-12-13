@@ -26,6 +26,15 @@ fun ResourceReferencePsiElement.findIdReference(scope: SearchScope): List<PsiRef
         .flatten()
 }
 
+/**
+ * 这段Kotlin代码定义了一个扩展函数 findLayoutReference，用于在给定的搜索范围内查找与布局资源相关的引用。具体功能如下：
+ * 获取 LayoutBindingModuleCache 实例。
+ * 检查是否有有效的 androidFacet，如果没有则返回 null。
+ * 获取所有绑定布局组。
+ * 将资源名称转换为Java类名，并查找匹配的布局组。
+ * 如果找到匹配的布局组，则获取其轻量级绑定类。
+ * 对每个轻量级绑定类进行引用搜索，并返回所有找到的引用。
+ */
 fun ResourceReferencePsiElement.findLayoutReference(scope: SearchScope): List<PsiReference>? {
     val bindingModuleCache = LayoutBindingModuleCache.getInstance(delegate.androidFacet ?: return null)
     val groups = bindingModuleCache.bindingLayoutGroups
@@ -44,6 +53,7 @@ fun List<PsiReference>.handleReferenceRename(project: Project, newRefName: Strin
         }
 }
 
+//layout view ID 自适应是否是viewBinding
 fun ResourceReferencePsiElement.renameId(
     newName: String,
     project: Project,
@@ -61,9 +71,15 @@ fun ResourceReferencePsiElement.renameId(
     }
 }
 
+/**
+ * ResourceReferencePsiElement
+ * ResourceType.ID is ResourceReferencePsiElement
+ */
 fun ResourceReferencePsiElement.renameId(newName: String, project: Project) =
     renameId(newName, project, DumbService.getInstance(project), GlobalSearchScope.projectScope(project))
 
+
+//修改Layout xml文件名称，DataBindingUtil 修改方法
 fun ResourceReferencePsiElement.renameLayout(
     newName: String,
     project: Project,
@@ -80,6 +96,12 @@ fun ResourceReferencePsiElement.renameLayout(
         handleReferenceRename(project, newRefName)
     }
 }
+
+/**
+ * XmlFile
+ * ResourceType.LAYOUT is XmlFile
+ *
+ */
 
 fun ResourceReferencePsiElement.renameLayout(newName: String, project: Project) =
     renameLayout(newName, project, DumbService.getInstance(project), GlobalSearchScope.projectScope(project))

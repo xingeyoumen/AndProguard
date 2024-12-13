@@ -22,6 +22,8 @@ class ProguardTreeAction : AnAction() {
         val label = "Obfuscate Tree"
         LogUtil.logRecord(myProject, label, false)
         val startTime = System.currentTimeMillis()
+
+        // 生成器 全部修改，这个方法有点鸡肋。不太还用，可以之前的配合着使用
         val generators = arrayOf(
             KotlinPreGenerator, JavaPreGenerator,
             KotlinGenerator, JavaGenerator,

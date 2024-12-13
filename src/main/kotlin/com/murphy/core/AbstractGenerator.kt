@@ -48,6 +48,13 @@ abstract class AbstractGenerator<T> {
         else filterIsInstance<T>().filter(predicate)
     }
 
+    /**
+     * 这段Kotlin代码定义了一个扩展函数 renameEach，用于对 List<PsiNamedElement> 类型的列表中的每个元素进行重命名操作。具体功能如下：
+     * 调用 alsoReset 方法：传入 type.name 作为参数，对当前对象进行某种重置操作。
+     * 遍历列表：使用 forEach 遍历列表中的每个 PsiNamedElement 元素。
+     * 重命名元素：对每个元素调用 rename 方法，传入两个参数：type.randomName(config) 和 type.name。
+     * 递增计数器：每次重命名后调用 increase 方法，递增某个计数器。
+     */
     protected fun List<PsiNamedElement>.renameEach(type: RefactorType) {
         alsoReset(type.name).forEach {
             it.rename(type.randomName(config), type.name)

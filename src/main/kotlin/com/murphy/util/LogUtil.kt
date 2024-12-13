@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter
 
 object LogUtil {
     /**
-     * 记录日志信息
+     * 记录日志信息-本地文件
      * @param message 日志内容
      */
     fun info(myProject: Project, message: String) {

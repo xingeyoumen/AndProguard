@@ -16,11 +16,22 @@ import com.murphy.util.PLUGIN_NAME
 import com.murphy.util.notifyError
 import com.murphy.util.notifyInfo
 
+
+/**
+ * 修改马甲包对应的属性接口
+ * 接口变量名和api名
+ * url 请求头 请求参数 响应参数
+ * 2f160d1f-6e09-442a-85af-59a73912e7aa.json
+ * 前面是原项目对应的，后面是当前使用的。将项目中前面的命名替换为json中的后面的。
+ *
+ * {"pX7jTczYizh":"ya3cwgjMqYzjuN07k","/acXA/joAbPS/cFuK9j1CRz":"/ux00Zx9Ha9g/f7sgJLrGd9ZW/p94Ly4fspu_/nzVfX8taSxX1s"}
+ */
 class ProguardBeanAction : AnAction() {
 
     override fun actionPerformed(action: AnActionEvent) {
         val myPsi = action.getData(PlatformDataKeys.PSI_ELEMENT) ?: return
         val myProject = action.project ?: return
+        // 预处理准备时，选中一个当前需要匹配对应关系的json文件
         if (!BeanGenerator.prepare(myProject)) return
         val label = "JSON Mapping Interface"
         LogUtil.logRecord(myProject, label, false)

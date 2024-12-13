@@ -13,6 +13,7 @@ import com.murphy.util.parseNode
     name = "AndProguardConfigState",
     storages = [Storage("AndProguardConfigState.xml")],
 )
+// 配置文件 namingNodes 0，1，2，3，4，5
 class AndConfigState : PersistentStateComponent<AndConfigState> {
     var classRule: String = "([^CLW2]{5,12}){2,3}"
     var functionRule: String = "[^LW2]{5,10}([^CLW2]{5,10}){1,2}"
@@ -55,6 +56,7 @@ class AndConfigState : PersistentStateComponent<AndConfigState> {
         initNamingConfig()
     }
 
+    //初始化命名的规则方式
     fun initNamingConfig() {
         NamingCombo.initCombo(combinations)
         namingNodes = listOf(

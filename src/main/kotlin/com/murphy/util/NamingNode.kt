@@ -22,6 +22,8 @@ class NamingNode(
         return buildString { repeat(randomLength) { action() } }
     }
 
+
+    // 随机命名 规则节点处理
     val randomNaming: String
         get() = when (element) {
             is String -> buildRandomString {
@@ -50,6 +52,8 @@ fun String.parseNode(): NamingNode {
     else NamingNode(Pair(1, 1), element)
 }
 
+
+// 解析命名树，配置的处理
 private fun parseNodeAny(content: String): Any {
     val stack = Stack<String>()
     var index = content.length - 1

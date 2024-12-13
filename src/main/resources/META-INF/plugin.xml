@@ -45,6 +45,50 @@
                 instance="com.murphy.config.AndConfigurable"
                 displayName="AndProguard"/>
     </extensions>
+
+    <!--
+    右键显示的 修改入口：
+    Obfuscate Tree
+    Obfuscate Node
+    JSON Mapping Interface
+    Refactor Packages
+    -->
+
+    <!--
+    ### 代码解释
+
+    这段XML代码定义了一个名为 `&Proguard` 的菜单组及其相关的动作项。具体功能如下：
+
+    1. **菜单组**：创建一个名为 `&Proguard` 的菜单组，该菜单组在项目视图右键菜单中显示。
+    2. **动作项**：
+       - **Obfuscate Tree**：混淆整个树结构，图标为 `/icons/infinity.svg`，类为 `com.murphy.action.ProguardTreeAction`。
+       - **Obfuscate Node**：混淆单个节点，图标为 `/icons/infinity.svg`，类为 `com.murphy.action.ProguardNodeAction`。
+       - **JSON Mapping Interface**：生成 JSON 映射接口，图标为 `AllIcons.FileTypes.Json`，类为 `com.murphy.action.ProguardBeanAction`。
+       - **Refactor Packages**：重构包，图标为 `com.intellij.icons.ExpUiIcons.Nodes.EditFolder`，类为 `com.murphy.action.ProguardPackAction`。
+
+    ### 控制流图
+
+    ```mermaid
+    flowchart TD
+        A[开始]  B[创建 &Proguard 菜单组]
+        B  C[添加 Obfuscate Tree 动作]
+        C  D[添加 Obfuscate Node 动作]
+        D  E[添加 JSON Mapping Interface 动作]
+        E  F[添加 Refactor Packages 动作]
+        F  G[结束]
+        ```
+
+
+    ### 说明
+
+    - **A[开始]**：表示流程的起点。
+    - **B[创建 &Proguard 菜单组]**：创建一个名为 `&Proguard` 的菜单组。
+    - **C[添加 Obfuscate Tree 动作]**：在 `&Proguard` 菜单组中添加 `Obfuscate Tree` 动作。
+    - **D[添加 Obfuscate Node 动作]**：在 `&Proguard` 菜单组中添加 `Obfuscate Node` 动作。
+    - **E[添加 JSON Mapping Interface 动作]**：在 `&Proguard` 菜单组中添加 `JSON Mapping Interface` 动作。
+    - **F[添加 Refactor Packages 动作]**：在 `&Proguard` 菜单组中添加 `Refactor Packages` 动作。
+    - **G[结束]**：表示流程的终点。
+    -->
     <actions>
         <group id="and-proguard-group" text="&amp;Proguard" popup="true">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>

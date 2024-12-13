@@ -34,21 +34,43 @@ object BeanGenerator : AbstractGenerator<PsiElement>() {
     private lateinit var beanMap: Map<String, String>
     override val name: String get() = "Bean"
 
+    //选中当前需要使用的json文件。
+    // 函数的主要目的是从用户选择的 JSON 文件中提取数据，并将其存储在 `beanMap` 中，最终返回一个布尔值表示是否成功准备数据。
+    /**
+     * 这段代码是一个 Kotlin 函数，命名为 `prepare`，接收一个 `Project` 类型的参数。函数的主要目的是从用户选择的 JSON 文件中提取数据，并将其存储在 `beanMap` 中，最终返回一个布尔值表示是否成功准备数据。
+     *
+     * 函数的具体步骤如下：
+     *
+     * 1. 创建一个 `FileChooserDescriptor` 对象，指定了文件选择器的一些属性，比如只允许选择 JSON 文件。
+     * 2. 弹出文件选择对话框，让用户选择一个文件。
+     * 3. 将选择的文件转换为 `JsonFile` 类型，然后提取其顶层值。
+     * 4. 如果顶层值不是 `JsonObject` 类型，则发出警告通知并返回 `false`。
+     * 5. 将 JSON 文件中的属性列表转换为一个映射（`Map`），并将其存储在 `beanMap` 中。
+     * 6. 最后，检查 `beanMap` 是否包含数据，如果有则返回 `true`，否则返回 `false`。
+     *
+     * 整体来说，这个函数的作用是从用户选择的 JSON 文件中提取数据，并将其存储在一个映射中，以备进一步处理或使用。
+     */
     fun prepare(project: Project): Boolean {
+        //1. 创建一个 `FileChooserDescriptor` 对象，指定了文件选择器的一些属性，比如只允许选择 JSON 文件。
         val descriptor = FileChooserDescriptor(true, false, false, false, false, false)
             .withFileFilter { it.extension == "json" }
+        //2. 弹出文件选择对话框，让用户选择一个文件。
         val chooseFile = FileChooser.chooseFile(descriptor, project, null)
+        //3. 将选择的文件转换为 `JsonFile` 类型，然后提取其顶层值。
         val jsonFile = chooseFile?.toPsiFile(project) as? JsonFile
         val jsonValue = jsonFile?.topLevelValue
+        //4. 如果顶层值不是 `JsonObject` 类型，则发出警告通知并返回 `false`。
         if (jsonValue !is JsonObject) {
             notifyWarn(project, "Only JsonObject is supported")
             return false
         }
+        //5. 将 JSON 文件中的属性列表转换为一个映射（`Map`），并将其存储在 `beanMap` 中。
         beanMap = jsonValue.propertyList.mapNotNull {
             val literal = it.value
             if (literal !is JsonStringLiteral) null
             else Pair(it.name, literal.value)
         }.toMap()
+        //6. 最后，检查 `beanMap` 是否包含数据，如果有则返回 `true`，否则返回 `false`。
         return beanMap.isNotEmpty()
     }
 
